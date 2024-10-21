@@ -29,7 +29,7 @@ input,
 button {
     border-radius: 0.5em;
     font-size: 1em;
-    height: 1.6em;
+    height: 2em;
 }
 
 input {
@@ -40,11 +40,11 @@ input {
 }
 
 button {
-    width: 25%;
+    width: 75%;
     border-width: 1px;
-    border-style: solid;
+    border-style: none;
     border-color: rgb(161, 161, 161);
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(240, 240, 240);
 }
 
 body {
