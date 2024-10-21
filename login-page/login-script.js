@@ -32,8 +32,8 @@ function Login() {
     let users = GetUserDB();
     let fields = GetFields();
     if (users[fields.email] == fields.password) {
-        console.log("Access granted!")
+        window.alert("Access granted!")
     } else {
-        console.log("Fuck you, imposter!")
+        window.alert("Fuck you, imposter!")
     }
 }
