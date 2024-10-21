@@ -32,8 +32,11 @@ function Login() {
     let users = GetUserDB();
     let fields = GetFields();
     if (users[fields.email] == fields.password) {
-        window.alert("Access granted!")
-    } else {
-        window.alert("Fuck you, imposter!")
+        window.alert("Доступ получен.");
+    } else if (users[fields.email] === undefined) {
+        window.alert("Сначала зарегистрируйтесь.");
+    }
+    else {
+        window.alert("Неверный пароль");
     }
 }
