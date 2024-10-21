@@ -1,44 +1,56 @@
-/* login-styles.css */
 body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.input,
+.submit-button-area {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 90vh;
-    font-family: system-ui, sans-serif;
+    align-items: baseline;
 }
 
-input {
-    border-radius: 0.5em;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.411);
-    height: 1.5em;
-    border-width: 1px;
+.input-label,
+.submit-button-margin {
+    width: 25%;
 }
 
-.fields,
-.labels {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-}
-
-.fields button {
-    max-width: 5em;
-    border-style: none;
-    background-color: rgb(11, 35, 190);
-    border-radius: 4px;
-    color: white;
-    height: 2em;
-}
-
-.fields input {
-    height: 1.5em;
+.input-input {
+    width: 75%;
 }
 
 form {
-    justify-content: space-between;
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    width: fit-content;
+    flex-direction: column;
+    gap: 0.5em;
+    max-width: 400px;
+    font-size: 1rem;
+}
+
+input,
+button {
+    border-radius: 0.5em;
+    font-size: 1em;
+    height: 1.6em;
+}
+
+input {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.195);
+    border-style: solid;
+
+}
+
+button {
+    width: 25%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(161, 161, 161);
+    background-color: rgb(224, 224, 224);
+}
+
+body {
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
 }

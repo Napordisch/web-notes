@@ -8,16 +8,19 @@
 </head>
 
 <body>
-    <div>
+    <div class = "login">
         <h1>Вход</h1>
         <form>
-            <div class="labels">
-                <label for="email">Email</label>
-                <label for="password">Пароль</label>
-            </div>
-            <div class="fields">
-                <input type="email" id="email">
-                <input type="password" id="password">
+            <label class="input">
+                <span class="input-label">Email</span>
+                <input type="email" id="email" class="input-input">
+            </label>
+            <label class="input">
+                <span class="input-label">Пароль</span>
+                <input type="password" id="password" class="input-input">
+            </label>
+            <div class="submit-button-area">
+                <span class = "submit-button-margin"></span>
                 <button type="submit">Войти</button>
             </div>
         </form>
