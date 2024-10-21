@@ -13,7 +13,7 @@ function WriteToUserDB(users) {
 function GetFields() {
     let emailValue = document.getElementById("email").value;
     let passwordValue = document.getElementById("password").value;
-    if (emailValue == "") {
+    if (emailValue == "" || passwordValue == "") {
         return false;
     }
     return { email: emailValue, password: passwordValue };
@@ -22,14 +22,16 @@ function GetFields() {
 function Register() {
     let users = GetUserDB();
     let fields = GetFields();
+    if (users[fields.email] != undefined) {
+        window.alert("Эта почта уже использована для создания аккаунта. Если вы знаете пароль, можете войти.");
+        return;
+    }
     if (fields == false) {
-        window.alert("Напишите электронную почту и пароль.")
+        window.alert("Напишите электронную почту и пароль.");
         return;
     }
     if (users[fields.email] === undefined) {
         users[fields.email] = fields.password;
-    } else {
-        console.log("Error: user already exists!");
     }
     console.log(users);
     WriteToUserDB(users);
