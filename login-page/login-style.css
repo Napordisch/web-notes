@@ -23,6 +23,7 @@ form {
     gap: 0.5em;
     max-width: 600px;
     font-size: 1rem;
+
 }
 
 input,
@@ -45,6 +46,8 @@ button {
     border-style: none;
     border-color: rgb(161, 161, 161);
     background-color: rgb(240, 240, 240);
+    color: black;
+    font-weight: normal;
 }
 
 body {
