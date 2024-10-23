@@ -22,12 +22,12 @@ function GetFields() {
 function Register() {
     let users = GetUserDB();
     let fields = GetFields();
-    if (users[fields.email] != undefined) {
-        window.alert("Эта почта уже использована для создания аккаунта. Если вы знаете пароль, можете войти.");
-        return;
-    }
     if (fields == false) {
         window.alert("Напишите электронную почту и пароль.");
+        return;
+    }
+    if (users[fields.email] != undefined) {
+        window.alert("Эта почта уже использована для создания аккаунта. Если вы знаете пароль, можете войти.");
         return;
     }
     if (users[fields.email] === undefined) {
@@ -40,7 +40,11 @@ function Register() {
 function Login() {
     let users = GetUserDB();
     let fields = GetFields();
-    if (users[fields.email] == fields.password) {
+    if (fields == false) {
+        window.alert("Напишите электронную почту и пароль.");
+        return;
+    }
+    if (users[fields.email] === fields.password) {
         window.alert("Доступ получен.");
     } else if (users[fields.email] === undefined) {
         window.alert("Сначала зарегистрируйтесь.");

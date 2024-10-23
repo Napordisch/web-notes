@@ -1,5 +1,10 @@
 body {
     font-family: Helvetica, Arial, sans-serif;
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
 }
 
 .input,
@@ -23,7 +28,6 @@ form {
     gap: 0.5em;
     max-width: 600px;
     font-size: 1rem;
-
 }
 
 input,
@@ -48,12 +52,4 @@ button {
     background-color: rgb(240, 240, 240);
     color: black;
     font-weight: normal;
-}
-
-body {
-    display: flex;
-    height: 90vh;
-    align-items: center;
-    justify-content: center;
-    width: 90vw;
 }
