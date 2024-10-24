@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="note-style.css">
+    <script src="note-script.js"></script>
 </head>
 
 <body>
@@ -12,7 +13,7 @@
             <a href="url">Заметки</a>
         </nav>
         <div class="current-note">
-            <textarea class="note-text-editor" placeholder="Заметка"></textarea>
+            <textarea class="note-text-editor" id="buffer" onkeyup="save()" placeholder="Заметка"></textarea>
             <div>
                 <label class="input-with-label">
                     <span class="input-label">Теги</span>
