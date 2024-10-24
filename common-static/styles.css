@@ -7,8 +7,9 @@ textarea::placeholder {
 
 a {
     text-decoration-thickness: .5px;
-    text-underline-offset: 0.15em;
-    color: rgb(5, 80, 255);
+    text-underline-offset: 0.4em;
+    text-decoration-color: rgba(0, 96, 160, 0.578);
+    color: rgb(0, 96, 160);
 }
 
 button {

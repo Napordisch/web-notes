@@ -42,3 +42,8 @@ body {
 .input-label+.input-input {
     margin-left: 5px;
 }
+.note-text-editor::placeholder {
+    font-style: italic;
+    font-weight: lighter;
+    letter-spacing:0.1ch;
+}
