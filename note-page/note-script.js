@@ -1,6 +1,6 @@
 saveTriggered = false;
 function save() {
-    if (!saveTriggered || saveTriggered == undefined) {
+    if (!saveTriggered) {
         saveTriggered = true;
         setTimeout(() => {
             localStorage.note = document.getElementById("buffer").value;
