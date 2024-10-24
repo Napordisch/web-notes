@@ -1,47 +1,44 @@
 body {
-    font-family: Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 95vh;
+    width: 95vw;
 }
 
-input,
-button,
-textarea {
-    border-radius: 0.5em;
-    font-size: 1em;
-
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    height: 100%;
+    max-width: 600px;
+    gap: 2em;
 }
 
-input,
-button {
-    height: 1.6em;
+.current-note {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
 }
 
-input,
-textarea {
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, 0.195);
-    border-style: solid;
-}
-
-textarea {
-    height: 500px;
-    max-height: 100%;
+.note-text-editor {
+    width: 100%;
     max-width: 100%;
-    width: 800px;
+    height: 100%;
+    border: none;
+    resize: none;
 }
 
-button {
-    border-width: 1px;
-    border-style: none;
-    border-color: rgb(161, 161, 161);
-    background-color: rgb(240, 240, 240);
-    color: black;
-    font-weight: normal;
+.note-text-editor:focus {
+    outline: none;
+    border: none;
 }
 
-main {
-    max-height: 90vh;
-}
 
-div {
-    padding: 0.5em;
+.input-label+.input-input {
+    margin-left: 5px;
 }

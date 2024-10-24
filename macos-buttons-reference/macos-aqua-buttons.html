@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #4F84C4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .aqua-button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #999;
+            background: linear-gradient(to bottom, #f8f8f8 0%, #e0e0e0 100%);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.5),
+                        inset 0 -1px rgba(0, 0, 0, 0.1),
+                        0 2px 5px rgba(0, 0, 0, 0.2);
+            color: black;
+            font-size: 14px;
+            text-shadow: 1px 1px rgba(255, 255, 255, 0.75);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .aqua-button:active {
+            background: linear-gradient(to bottom, #e0e0e0 0%, #f8f8f8 100%);
+            box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .aqua-button:focus {
+            box-shadow: 0 0 5px rgba(33, 150, 243, 0.7);
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+    <title>MacOS Aqua Buttons</title>
+</head>
+<body>
+    <div class="container">
+        <button class="aqua-button">Cancel</button>
+        <button class="aqua-button" style="background-color: #4a90e2; color: white;">OK</button>
+    </div>
+</body>
+</html>

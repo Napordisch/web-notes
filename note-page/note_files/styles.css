@@ -1,0 +1,26 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+button {
+    width: 75%;
+    border-width: 1px;
+    border-style: none;
+    border-color: rgb(161, 161, 161);
+    background-color: rgb(240, 240, 240);
+    color: black;
+    font-weight: normal;
+}
+
+input,
+button {
+    border-radius: 0.5em;
+    font-size: 1em;
+    height: 2em;
+}
+
+input {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.195);
+    border-style: solid;
+}
