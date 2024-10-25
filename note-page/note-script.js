@@ -6,7 +6,6 @@ function read() {
 
 read()
 
-
 function catchTags() {
     let tags = document.getElementById("buffer").value.match(/#\w+/g)
     if (tags != null) {

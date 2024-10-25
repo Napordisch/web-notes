@@ -17,7 +17,9 @@ body {
     width: 30%;
 }
 
-.input-input {
+
+.input-input,
+button {
     width: 75%;
 }
 
@@ -25,10 +27,16 @@ form {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    max-width: 600px;
+    /*max-width: 600px;*/
     font-size: 1rem;
+    justify-content: flex-start;
+    width: 250px
 }
 
-button {
-    width: 75%;
+
+.form-message {
+    min-height: 4em;
+    max-width: 100%;
+    flex-grow: 0;
+    color: crimson;
 }

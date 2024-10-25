@@ -13,21 +13,31 @@ function WriteToUserDB(users) {
 function GetFields() {
     let emailValue = document.getElementById("email").value;
     let passwordValue = document.getElementById("password").value;
-    if (emailValue == "" || passwordValue == "") {
+    if (emailValue === "" || passwordValue === "") {
         return false;
     }
-    return { email: emailValue, password: passwordValue };
+    return {email: emailValue, password: passwordValue};
+}
+
+function ShowProblem(ProblemText) {
+   document.getElementById("form-message").innerHTML = ProblemText;
+}
+
+function ClearProblem() {
+    ShowProblem("");
 }
 
 function Register() {
     let users = GetUserDB();
     let fields = GetFields();
-    if (fields == false) {
-        window.alert("Напишите электронную почту и пароль.");
+    if (fields === false) {
+        /*document.getElementById("form-message").innerText = "Напишите электронную почту и пароль.";*/
+        ShowProblem("Напишите электронную почту и пароль.")
         return;
     }
-    if (users[fields.email] != undefined) {
-        window.alert("Эта почта уже использована для создания аккаунта. Если вы знаете пароль, можете войти.");
+    if (users[fields.email] !== undefined) {
+
+        ShowProblem("Эта почта уже использована для создания аккаунта. Если вы знаете пароль, можете войти.");
         return;
     }
     if (users[fields.email] === undefined) {
@@ -40,16 +50,18 @@ function Register() {
 function Login() {
     let users = GetUserDB();
     let fields = GetFields();
-    if (fields == false) {
-        window.alert("Напишите электронную почту и пароль.");
-        return;
-    }
-    if (users[fields.email] === fields.password) {
-        window.alert("Доступ получен.");
+    if (fields === false) {
+       ShowProblem("Напишите электронную почту и пароль.");
+        /*  window.alert("Напишите электронную почту и пароль.");
+          return;*/
+    } else if (users[fields.email] === fields.password) {
+      ShowProblem("Доступ получен.");
+
     } else if (users[fields.email] === undefined) {
-        window.alert("Сначала зарегистрируйтесь.");
-    }
-    else {
-        window.alert("Неверный пароль");
+       ShowProblem("Сначала зарегистрируйтесь.");
+
+    } else {
+       ShowProblem("Неверный пароль");
+
     }
 }
