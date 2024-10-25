@@ -2,8 +2,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 97vh;
-    width: 97vw;
+    height: 98vh;
+    width: 98vw;
 }
 
 .layout {
@@ -45,6 +45,5 @@ body {
 
 .note-text-editor::placeholder {
     font-style: italic;
-    font-weight: lighter;
-    letter-spacing: 0.1ch;
+    /*letter-spacing: 0.1ch;*/
 }

@@ -8,23 +8,25 @@
     <link rel="stylesheet" href="note-style.css">
 </head>
 
+<!--todo: make textarea full-page, remove unnecessary containers-->
+
 <body>
-    <div class="layout">
-        <nav>
-            <a href="url">Заметки</a>
-        </nav>
-        <div class="current-note">
+<div class="layout">
+    <nav>
+        <a href="url">Заметки</a>
+    </nav>
+    <div class="current-note">
             <textarea class="note-text-editor" id="buffer" onkeyup="save(); catchTags()" placeholder="Текст
-            
+
 Теги после «#» без пробелов"></textarea>
-            <!-- <div>
-                <label class="input-with-label">
-                    <span class="input-label">Теги</span>
-                    <input class="input-input">
-                </label>
-            </div> -->
-        </div>
+        <!-- <div>
+            <label class="input-with-label">
+                <span class="input-label">Теги</span>
+                <input class="input-input">
+            </label>
+        </div> -->
     </div>
+</div>
 
 </body>
 
