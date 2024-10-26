@@ -3,10 +3,18 @@ path = require('path')
 const app = express()
 const port = 3000
 
+app.use(express.json());
 app.use(express.static("login-page"));
 app.use(express.static("note-page"));
 app.use(express.static("common-static"));
 app.use(express.static("notes-viewer-page"));
+
+users = {a: {
+  password:  "s",
+    id: "1"
+}
+}
+
 
 app.get('/login', (req, res) => {
   res.sendFile("login-page/login.html", { root: __dirname });
@@ -22,6 +30,15 @@ app.get('/note', (req, res) => {
 
 app.get('/', (req, res) => {
   res.redirect(req.baseUrl + '/login');
+})
+
+app.post('/login', (req, res) => {
+  if (req.body.password === users[req.body.email].password) {
+    res.status(400);
+  } else{
+    res.status(401).json({message: "Login failed"});
+  }
+  res.send();
 })
 
 app.listen(port, () => {
