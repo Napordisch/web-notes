@@ -40,27 +40,25 @@ function Login() {
     let fields = GetFields();
     if (fields === false) {
         ShowProblem("Напишите электронную почту и пароль.");
-        /*  window.alert("Напишите электронную почту и пароль.");
-          return;*/
     }
     else {
         console.log(JSON.stringify(fields));
         fetch("/login", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "Application/json",
             },
             body: JSON.stringify(fields)
         }).then(res => {
             if (res.status === 401) {
-                throw new Error("nouser");
+                throw new Error("no-such-user");
             }
             localStorage.setItem("email", fields.email);
             localStorage.setItem("password", fields.password);
             window.location.href = "/all-notes";
         }).catch(error => {
             console.log(error);
-            if (error.message === "nouser") {
+            if (error.message === "no-such-user") {
                 ShowProblem("Неправильный логин или пароль");
             }
         })

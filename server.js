@@ -1,8 +1,9 @@
 const express = require('express')
 path = require('path')
 const app = express()
-const port = 3000
+const port = 3000;
 
+// app.use(express.text());
 app.use(express.json());
 app.use(express.static("login-page"));
 app.use(express.static("note-page"));
@@ -33,11 +34,14 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  if (req.body.password === users[req.body.email].password) {
+  console.log(req.body)
+  let fields = req.body;
+  if (fields.email in users && fields.password === users[fields.email].password) {
     res.status(400);
-  } else{
-    res.status(401).json({message: "Login failed"});
+    res.send();
+    return;
   }
+  res.status(401).json({message: "Login failed"});
   res.send();
 })
 
