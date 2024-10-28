@@ -15,10 +15,24 @@ app.use(express.static("notes-viewer-page"));
 // console.log("Users:")
 // console.log(users);
 
-function getUsers() {
-    return JSON.parse(fs.readFileSync('test-users.json', 'utf8'));
+
+UsersDB = {
+    users: JSON.parse(fs.readFileSync('test-users.json', 'utf8')),
+    AddUser(email, passwordValue) {
+        this.users[email] = {"password": passwordValue};
+        fs.writeFile("test-users.json", JSON.stringify(this.users, null, 4), err => {
+            if (err) {console.error(err);}
+        })
+        console.log(this.users);
+    }
 }
-console.log(getUsers())
+
+NotesDB = {
+    notes: JSON.parse(fs.readFileSync('test-notes.json', 'utf8'))
+}
+console.log(NotesDB);
+
+
 
 app.get('/login', (req, res) => {
     res.sendFile("login-page/login.html", {root: __dirname});
@@ -37,7 +51,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    let users = getUsers();
+    let users = UsersDB.users;
     console.log(users);
     console.log(req.body);
     let fields = req.body;
@@ -48,20 +62,21 @@ app.post('/login', (req, res) => {
     }
     let errorMessage = "no-such-user";
     res.status(401).send(errorMessage);
-    cons
+    console.error("no-such-user");
 })
 
 app.post("/register", (req, res) => {
-    let users = getUsers();
-    console.log(users);
+    console.log(UsersDB);
     console.log (req.body);
     let fields = req.body;
-    if (fields.email in users) {
+    if (fields.email in UsersDB.users) {
         let errorMessage = "email-already-exists";
         console.error(errorMessage);
         res.status(409).send(errorMessage);
         return;
     }
+    UsersDB.AddUser(fields.email, fields.password);
+    res.status(201).send("account-created");
 })
 
 app.listen(port, () => {

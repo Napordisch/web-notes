@@ -33,6 +33,9 @@ function Register() {
                 throw new Error(text);
             })
         }
+        if (res.status === 201) {
+           window.alert("Вы зарегистрировались");
+        }
     }).catch(error => {
         if (error.message === "email-already-exists") {
             ShowProblem("Аккаунт на такую почту уже зарегистрирован");
