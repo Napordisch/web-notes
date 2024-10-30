@@ -34,7 +34,7 @@ function Register() {
             })
         }
         if (res.status === 201) {
-           window.alert("Вы зарегистрировались");
+            window.alert("Вы зарегистрировались");
         }
     }).catch(error => {
         if (error.message === "email-already-exists") {
@@ -63,7 +63,7 @@ function Login() {
         }
         localStorage.setItem("email", fields.email);
         localStorage.setItem("password", fields.password);
-        window.location.href = "/all-notes";
+        window.location.href = "/notes";
     }).catch(error => {
         console.log(error);
         if (error.message === "no-such-user") {
