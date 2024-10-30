@@ -11,28 +11,46 @@ app.use(express.static("note-page"));
 app.use(express.static("common-static"));
 app.use(express.static("notes-viewer-page"));
 
-// users = JSON.parse(fs.readFileSync('test-users.json', 'utf8'));
-// console.log("Users:")
-// console.log(users);
-
-
 UsersDB = {
     users: JSON.parse(fs.readFileSync('test-users.json', 'utf8')),
-    AddUser(email, passwordValue) {
-        this.users[email] = {"password": passwordValue};
+    WriteToFile() {
         fs.writeFile("test-users.json", JSON.stringify(this.users, null, 4), err => {
-            if (err) {console.error(err);}
+            if (err) console.error(err);
         })
-        console.log(this.users);
     }
 }
 
 NotesDB = {
-    notes: JSON.parse(fs.readFileSync('test-notes.json', 'utf8'))
+    notes: JSON.parse(fs.readFileSync('test-notes.json', 'utf8')),
+    WriteToFile() {
+        fs.writeFile("test-notes.json", JSON.stringify(this.notes, null, 4), err => {
+            if (err) {console.error(err);}
+        })
+    }
 }
-console.log(NotesDB);
 
+UsersDB.AddUser = (email, passwordValue) => {
+    UsersDB.users[email] = {"password": passwordValue};
+    NotesDB.notes[email] = {};
+    console.log(UsersDB);
+    console.log(NotesDB);
+    UsersDB.WriteToFile();
+    NotesDB.WriteToFile();
+}
 
+NotesDB.AddNote = (email, noteValue) => {
+    if (!(email in UsersDB.notes)) {
+        console.error("no-such-user");
+        return;
+    }
+    let noteID = crypto.randomUUID();
+    console.log(noteID);
+    NotesDB.notes[email][noteID] = {};
+    NotesDB.notes[email][noteID].content = noteValue;
+    NotesDB.notes[email][noteID].creationTime = new Date();
+    console.log(NotesDB.notes);
+    NotesDB.WriteToFile();
+}
 
 app.get('/login', (req, res) => {
     res.sendFile("login-page/login.html", {root: __dirname});
