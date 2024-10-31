@@ -1,6 +1,10 @@
 function GetFields() {
     let emailValue = document.getElementById("email").value;
     let passwordValue = document.getElementById("password").value;
+    const emailPattern = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+    if (!emailPattern.test(emailValue)) {
+        return false;
+    }
     if (emailValue === "" || passwordValue === "") {
         return false;
     }
