@@ -156,6 +156,9 @@ function CreateNote() {
 }
 
 function AddTagToSearchBox(tag) {
+    if (document.getElementById("searchbox").value !== "") {
+        document.getElementById("searchbox").value += " ";
+    }
     document.getElementById("searchbox").value += tag;
     setTimeout(() => {
         FillByTags();
