@@ -6,128 +6,26 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="all-notes-style.css">
     <title>Все заметки</title>
-    <script src="all-notes-script.js"></script>
+    <script src="all-notes-script.js" defer></script>
 </head>
 
 <body>
-    <div class="layout">
-        <header>
-            <input id="searchbox" type="search" placeholder="Поиск по тегам">
-            <button type="button" id="logout-button">Выйти из аккаунта</button>
-        </header>
-        <main>
-            <div class="add-note">
-                <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
-                    <rect y="24" width="50" height="2" fill="black" />
-                    <rect x="26" width="50" height="2" transform="rotate(90 26 0)" fill="black" />
-                </svg>
-            </div>
-            <div class="note">
-                <p class="note-text">Note 1</p>
-                <ul class="tags">
-                    <li class="tag"><a href="">Penis</a></li>
-                    <li class="tag"><a href="">Parker</a></li>
-                </ul>
-            </div>
-            <div class="note">
-                <p class="note-text">
-                    Слоны - самые крупные из ныне живущих наземных животных. В настоящее время известно три
-                    вида: африканский кустарниковый слон (Loxodonta africana), африканский лесной слон (L. cyclotis) и
-                    азиатский слон (Elephas maximus). Это единственные сохранившиеся представители семейства
-                    Elephantidae и
-                    порядка Proboscidea; их вымершие родственники - мамонты и мастодонты. Отличительные черты слонов -
-                    длинный хобот, бивни, большие ушные раковины, столбообразные ноги и прочная, но чувствительная серая
-                    кожа. Хобот - это хоботок, которым они подносят пищу и воду ко рту и хватают предметы. Бивни,
-                    происходящие от резцовых зубов, служат как оружием, так и инструментом для перемещения предметов и
-                    рытья. Большие ушные раковины помогают поддерживать постоянную температуру тела, а также общаться. У
-                    африканских слонов более крупные уши и вогнутая спина, в то время как у азиатских слонов уши меньше,
-                    uullа
-                    спина выпуклая или ровная. Слоны распространены по всей Африке к югу от Сахары, Южной и
-                    Юго-Восточной
-                    Азии и встречаются в различных местах обитания, включая саванны, леса, пустыни и болота. Они
-                    травоядны и
-                    держатся у воды, когда она доступна. Они считаются ключевыми видами из-за их влияния на окружающую
-                    среду. У слонов есть общество деления и слияния, в котором несколько семейных групп собираются
-                    вместе
-                    для общения.
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">слоны</a></li>
-                    <li class="tag"><a href="">животные</a></li>
-                </ul>
-            </div>
-            <div class="note">
-                <p class="note-text">
-                    Не надо делать подчеркивания через бордер. Можно сделать тонкие с помощью свойств:
-                    text-decoration-thickness: .5px;
-                    text-underline-offset: 0.4em; в цссе
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">ЦСС</a></li>
-                    <li class="tag"><a href="">веб</a></li>
-                </ul>
-            </div>
-            <div class="note">
-                <p class="note-text">
-                    Surgeon x marco v
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">Музыка</a></li>
-                    <li class="tag"><a href="">Микс</a></li>
-                </ul>
-            </div>
-            <div class="note">
-                <p class="note-text">
-                    Настроки камеры:
-                    экспозиция -0,7;
-                    Фильтр vibrant
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">Фотография</a></li>
-                    <li class="tag"><a href="">Настройки</a></li>
-                </ul>
-            </div>
-            <div class="note">
-                <p class="note-text">
-                    Настроки камеры
-                    экспозиция -0,7;
-                    Фильтр vibrant
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">Фотография</a></li>
-                    <li class="tag"><a href="">Настройки</a></li>
-                </ul>
-            </div>
-
-            <div class="note">
-                <p class="note-text">
-                    CC: Color with warm Kodak vibes
-
-                    Classic Chrome<br>
-                    Dynamic Range: DR400<br>
-                    Highlight: +1<br>
-                    Shadow: +2<br>
-                    Color: -3<br>
-                    Noise Reduction: -4<br>
-                    Sharpening: +3<br>
-                    Clarity: 0<br>
-                    Grain Effect: Weak, Small<br>
-                    Color Chrome Effect: Strong<br>
-                    Color Chrome Effect Blue: Off<br>
-                    White Balance: Auto, +2 Red & -3 Blue<br>
-                    ISO: Manual, 640 and up
-                </p>
-                <ul class="tags">
-                    <li class="tag"><a href="">Фотография</a></li>
-                    <li class="tag"><a href="">Фуджи</a></li>
-                    <li class="tag"><a href="">Настройки</a></li>
-
-                </ul>
-            </div>
+<div class="layout">
+    <header>
+        <input id="searchbox" type="search" placeholder="Поиск по тегам" onkeyup="FillByTags()">
+        <button type="button" id="logout-button" onclick="Logout()">Выйти из аккаунта</button>
+    </header>
+    <main id = "notes-container">
+        <div class="add-note">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <rect y="24" width="50" height="2" fill="black" />
+                <rect x="26" width="50" height="2" transform="rotate(90 26 0)" fill="black" />
+            </svg>
+        </div>
 
 
-        </main>
-    </div>
+    </main>
+</div>
 
 
 </body>

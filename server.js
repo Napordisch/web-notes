@@ -95,7 +95,13 @@ app.post('/get-all-notes', (req, res) => {
         console.error(errorMessage);
         return;
     }
-    let notes = NotesDB.notes[credentials.email];
+    let notes = [];
+    for (let note in NotesDB.notes[credentials.email]) {
+        let appended_note = NotesDB.notes[credentials.email][note]
+        appended_note.id = note;
+        notes.push(appended_note);
+    }
+    notes.sort((a, b) => new Date(b.lastEditTime) - new Date(a.lastEditTime));
     console.log("Login")
     console.log(JSON.stringify(notes, null, 4))
     res.status(200).send(JSON.stringify(notes));
