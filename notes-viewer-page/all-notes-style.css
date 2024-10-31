@@ -44,12 +44,16 @@ main,
     flex-direction: column;
     margin: 0;
     cursor: pointer;
+    position:relative;
 }
 
 .note-text {
     overflow: hidden;
     padding: 3px;
     font-size: 0.8em;
+    word-wrap: break-word;
+    white-space: normal;
+    position: relative;
 }
 
 .add-note,
@@ -94,4 +98,16 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, 166px);
     gap: 15px 5px;
+}
+
+.delete-button {
+    position: absolute;
+    right: 5px; /* Position the button in the top-right corner */
+    bottom: 0px;
+    padding: 0; /* Remove padding to keep it small */
+    cursor: pointer;
+    border-style: none;
+    border-radius: 0px;
+    color: red;
+    background:rgba(247, 247, 247, 0.851);
 }

@@ -31,6 +31,11 @@ function AddNote(noteStructure, note) {
     newNote.innerHTML = noteStructure;
     newNote.querySelector("p").innerText = note.content;
     newNote.querySelector("p").setAttribute("onclick", 'Edit("' + note.id + '")')
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "Удалить";
+    deleteButton.classList.add("delete-button");
+    deleteButton.setAttribute("onclick", 'DeleteNote("' + note.id + '")');
+    newNote.querySelector("p").appendChild(deleteButton);
     if (note.tags !== []) {
         for (let tag in note.tags) {
             let newTag = document.createElement("li")
@@ -38,7 +43,7 @@ function AddNote(noteStructure, note) {
             let tagLink = document.createElement("a");
             tagLink.innerText = note.tags[tag];
             // tagLink.href = "";
-            tagLink.setAttribute("onclick", 'AddTag("' + note.tags[tag] + '")')
+            tagLink.setAttribute("onclick", 'AddTagToSearchBox("' + note.tags[tag] + '")')
             newTag.appendChild(tagLink);
             newNote.getElementsByClassName("tags")[0].appendChild(newTag);
             if (tag !== note.tags.length - 1) {
@@ -119,14 +124,10 @@ function Logout() {
 
 function Edit(id) {
     fetch('/edit', {
-        method: 'PUT',
-        headers: {
+        method: 'PUT', headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: localStorage.getItem("email"),
-            password: localStorage.getItem("password"),
-            noteID: id
+        }, body: JSON.stringify({
+            email: localStorage.getItem("email"), password: localStorage.getItem("password"), noteID: id
         }),
     }).then(res => {
         res.text().then(note => {
@@ -143,8 +144,7 @@ function CreateNote() {
     fetch('/create-note', {
         method: 'POST', headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email: localStorage.getItem("email"), password: localStorage.getItem("password")})
+        }, body: JSON.stringify({email: localStorage.getItem("email"), password: localStorage.getItem("password")})
     }).then(res => {
         res.text().then(id => {
             GetAllNotes();
@@ -155,9 +155,32 @@ function CreateNote() {
     })
 }
 
-function AddTag(tag) {
+function AddTagToSearchBox(tag) {
     document.getElementById("searchbox").value += tag;
-    setTimeout(() => {FillByTags();}, 10);
+    setTimeout(() => {
+        FillByTags();
+    }, 10);
+}
+
+function DeleteNote(id) {
+    event.stopPropagation();
+    fetch('/delete-note', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: localStorage.getItem("email"),
+            password: localStorage.getItem("password"),
+            NoteID: id
+        })
+    }).then(res => {
+        res.text().then(id => {
+            GetAllNotes();
+        }).catch(error => {
+            console.error(error.message);
+        })
+    })
 }
 
 

@@ -72,6 +72,11 @@ NotesDB.EditNote = (email, updatedNote) => {
     return 0;
 }
 
+NotesDB.DeleteNote = (email, NoteID) => {
+   delete(NotesDB.notes[email][NoteID]);
+   NotesDB.WriteToFile();
+}
+
 app.get('/login', (req, res) => {
     res.sendFile("login-page/login.html", {root: __dirname});
 })
@@ -169,4 +174,18 @@ app.post('/create-note', (req, res) => {
     let noteID = NotesDB.AddNote(req.body.email);
     console.log(NotesDB);
     res.status(200).send(noteID);
+})
+
+app.delete('/delete-note', (req, res) => {
+    if (!(req.body.email in NotesDB.notes) || req.body.password !== UsersDB.users[req.body.email].password) {
+        res.status(401).send("no-such-user");
+        return;
+    }
+    if (!(req.body.NoteID in NotesDB.notes[req.body.email])) {
+        console.log("no-note-with-such-id");
+        res.status(404).send("no-note-with-such-id");
+        return;
+    }
+    NotesDB.DeleteNote(req.body.email, req.body.NoteID);
+    res.status(200).send("deleted");
 })
