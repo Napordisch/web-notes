@@ -10,7 +10,7 @@ function read() {
 read()
 
 function catchTags() {
-    let tags = document.getElementById("buffer").value.match(/#\w+/g)
+    let tags = document.getElementById("buffer").value.match(/#([\w\u0400-\u04FF]+)/g)
     let pureTags = [];
     if (tags != null) {
         pureTags = tags.map(tag => tag.slice(1));
