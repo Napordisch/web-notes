@@ -79,3 +79,6 @@ input:focus {
     border-style: solid;
     outline: none;
 }
+button {
+    cursor: pointer;
+}

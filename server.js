@@ -33,8 +33,6 @@ NotesDB = {
 UsersDB.AddUser = (email, passwordValue) => {
     UsersDB.users[email] = {"password": passwordValue};
     NotesDB.notes[email] = {};
-    console.log(UsersDB);
-    console.log(NotesDB);
     UsersDB.WriteToFile();
     NotesDB.WriteToFile();
 }
@@ -45,15 +43,33 @@ NotesDB.AddNote = (email) => {
         return;
     }
     let noteID = crypto.randomUUID();
-    console.log(noteID);
     NotesDB.notes[email][noteID] = {
         content: "",
         creationTime: new Date(),
         lastEditTime: new Date(),
         tags: []
     };
-    console.log(NotesDB.notes);
     NotesDB.WriteToFile();
+    return noteID;
+}
+
+NotesDB.EditNote = (email, updatedNote) => {
+    console.log(updatedNote);
+
+    let noteID = updatedNote.id;
+    if (!(email in NotesDB.notes)) {
+        console.error("no-such-user");
+        return "no-such-user";
+    }
+    if (NotesDB.notes[email][noteID] === undefined) {
+        console.error("no-note-with-such-id");
+        return "no-note-with-such-id";
+    }
+    NotesDB.notes[email][noteID].content = updatedNote.content;
+    NotesDB.notes[email][noteID].tags = updatedNote.tags;
+    NotesDB.notes[email][noteID].lastEditTime = updatedNote.lastEditTime;
+    NotesDB.WriteToFile();
+    return 0;
 }
 
 app.get('/login', (req, res) => {
@@ -66,20 +82,26 @@ app.get('/notes', (req, res) => {
 
 app.put('/edit', (req, res) => {
     let credentials = req.body;
-    console.log(credentials);
     if (NotesDB.notes[credentials.email][credentials.noteID] === undefined) {
         res.status(404).send("no-note-with-such-id");
         return;
     }
     let notes = NotesDB.notes[credentials.email];
     let noteID = credentials.noteID;
-    let sentNote = notes[noteID]
+    let sentNote = JSON.parse(JSON.stringify(notes[noteID]));
     sentNote.id = noteID;
-    console.log(sentNote);
-    res.send(JSON.stringify(sentNote));
+    res.status(200).send(JSON.stringify(sentNote));
 })
 
-app.post('/save-note')
+app.post('/save-note', (req, res) => {
+    let result = NotesDB.EditNote(req.body.email, req.body.note);
+    if (result !== 0) {
+        console.error(result);
+        res.status(500).send(result);
+        return;
+    }
+    res.status(200).send();
+})
 
 app.get('/edit', (req, res) => {
     res.sendFile("note-page/note.html", {root: __dirname});
@@ -90,7 +112,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    console.log(req.body);
     let fields = req.body;
     if (fields.email in UsersDB.users && fields.password === UsersDB.users[fields.email].password) {
         res.status(200);
@@ -112,19 +133,15 @@ app.post('/get-all-notes', (req, res) => {
     }
     let notes = [];
     for (let note in NotesDB.notes[credentials.email]) {
-        let appended_note = NotesDB.notes[credentials.email][note]
+        let appended_note = JSON.parse(JSON.stringify(NotesDB.notes[credentials.email][note]));
         appended_note.id = note;
         notes.push(appended_note);
     }
     notes.sort((a, b) => new Date(b.lastEditTime) - new Date(a.lastEditTime));
-    console.log("Login")
-    console.log(JSON.stringify(notes, null, 4))
     res.status(200).send(JSON.stringify(notes));
 })
 
 app.post("/register", (req, res) => {
-    console.log(UsersDB);
-    console.log (req.body);
     let fields = req.body;
     if (fields.email in UsersDB.users) {
         let errorMessage = "email-already-exists";
@@ -140,5 +157,16 @@ app.listen(port, () => {
     console.log(`Web-notes app listening on port ${port}`)
 })
 
-NotesDB.AddNote("f");
-NotesDB.AddNote("e");
+app.post('/create-note', (req, res) => {
+    if (!(req.body.email in NotesDB.notes)) {
+        res.status(401).send("no-such-user");
+        return;
+    }
+    if (req.body.password !== UsersDB.users[req.body.email].password){
+        res.status(401).send("incorrect-password");
+        return;
+    }
+    let noteID = NotesDB.AddNote(req.body.email);
+    console.log(NotesDB);
+    res.status(200).send(noteID);
+})

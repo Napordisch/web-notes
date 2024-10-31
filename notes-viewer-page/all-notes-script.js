@@ -28,16 +28,17 @@ function AddNote(noteStructure, note) {
     let newNote = document.createElement("div");
     newNote.classList.add("note");
     newNote.id = note.id;
-    newNote.setAttribute("onclick", 'Edit("' + note.id + '")');
     newNote.innerHTML = noteStructure;
     newNote.querySelector("p").innerText = note.content;
+    newNote.querySelector("p").setAttribute("onclick", 'Edit("' + note.id + '")')
     if (note.tags !== []) {
         for (let tag in note.tags) {
             let newTag = document.createElement("li")
             newTag.classList.add("tag");
             let tagLink = document.createElement("a");
             tagLink.innerText = note.tags[tag];
-            tagLink.href = "";
+            // tagLink.href = "";
+            tagLink.setAttribute("onclick", 'AddTag("' + note.tags[tag] + '")')
             newTag.appendChild(tagLink);
             newNote.getElementsByClassName("tags")[0].appendChild(newTag);
             if (tag !== note.tags.length - 1) {
@@ -118,9 +119,15 @@ function Logout() {
 
 function Edit(id) {
     fetch('/edit', {
-        method: 'PUT', headers: {
+        method: 'PUT',
+        headers: {
             'Content-Type': 'application/json',
-        }, body: JSON.stringify({ email: localStorage.getItem("email"), password: localStorage.getItem("password"), noteID: id}),
+        },
+        body: JSON.stringify({
+            email: localStorage.getItem("email"),
+            password: localStorage.getItem("password"),
+            noteID: id
+        }),
     }).then(res => {
         res.text().then(note => {
             localStorage.setItem("note", note);
@@ -131,5 +138,27 @@ function Edit(id) {
         console.error(error.message);
     })
 }
+
+function CreateNote() {
+    fetch('/create-note', {
+        method: 'POST', headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: localStorage.getItem("email"), password: localStorage.getItem("password")})
+    }).then(res => {
+        res.text().then(id => {
+            GetAllNotes();
+            Edit(id);
+        }).catch(error => {
+            console.error(error.message);
+        })
+    })
+}
+
+function AddTag(tag) {
+    document.getElementById("searchbox").value += tag;
+    setTimeout(() => {FillByTags();}, 10);
+}
+
 
 GetAllNotes();
