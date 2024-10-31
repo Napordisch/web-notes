@@ -136,6 +136,21 @@ app.post("/register", (req, res) => {
     res.status(201).send("account-created");
 })
 
+app.post("/resetPassword", (req, res) => {
+    console.log(UsersDB);
+    console.log (req.body);
+    let fields = req.body;
+    if (!(fields.email in UsersDB.users)) {
+        let errorMessage = "no-such-user";
+        res.status(401).send(errorMessage);
+        console.error("no-such-user");
+        return;
+    }
+    console.log("Your password");
+    console.log(UsersDB.users[fields.email].password);
+    res.status(201).send("password-restored");
+})
+
 app.listen(port, () => {
     console.log(`Web-notes app listening on port ${port}`)
 })

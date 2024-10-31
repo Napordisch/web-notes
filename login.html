@@ -1,0 +1,44 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login-style.css">
+    <script src="login-script.js"></script>
+    <title>Вход</title>
+</head>
+
+<body>
+<div class="login">
+    <h1>Вход</h1>
+    <form>
+        <label class="input-with-label">
+            <span class="input-label">Email</span>
+            <input type="email" id="email" class="input-input" onkeydown="ClearProblem()">
+        </label>
+        <label class="input-with-label">
+            <span class="input-label">Пароль</span>
+            <input type="password" id="password" class="input-input" onkeydown="ClearProblem()">
+        </label>
+        <div class="submit-button-area">
+            <span class="submit-button-margin"></span>
+            <button type="button" onclick="Login()">Войти</button>
+        </div>
+        <div class="submit-button-area">
+            <span class="submit-button-margin"></span>
+            <button type="button" onclick="Register()">Зарегистрироваться</button>
+        </div>
+        <div class="submit-button-area">
+            <span class="submit-button-margin"></span>
+            <button type="button" onclick="ForgotPassword()">Восстановление пароля</button>
+        </div>
+
+    <p class="form-message" id = "form-message"></p>
+    </form>
+</div>
+
+</body>
+
+</html>
