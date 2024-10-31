@@ -189,3 +189,15 @@ app.delete('/delete-note', (req, res) => {
     NotesDB.DeleteNote(req.body.email, req.body.NoteID);
     res.status(200).send("deleted");
 })
+
+app.post("/reset-password", (req, res) => {
+    let email = req.body.email;
+    if (!(email in UsersDB.users)) {
+        let errorMessage = "no-such-user";
+        res.status(401).send(errorMessage);
+        console.error(errorMessage);
+        return;
+    }
+    console.log("Your password: " + UsersDB.users[email].password);
+    res.status(200).send("password-restored");
+})

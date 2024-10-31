@@ -32,8 +32,10 @@ button {
     border-width: 1px;
     background-color: white;
     color: black;
-    border-color: black;
+    border-color: darkgrey;
     border-style: solid;
+    cursor: pointer;
+    height: 2em;
 }
 
 button:hover {
@@ -53,8 +55,7 @@ button:active {
 }
 
 
-input,
-button {
+input {
     height: 1.6em;
 }
 
@@ -78,7 +79,4 @@ input:focus {
     border-color: rgba(0, 0, 0, 0.537);
     border-style: solid;
     outline: none;
-}
-button {
-    cursor: pointer;
 }

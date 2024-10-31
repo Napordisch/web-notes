@@ -1,7 +1,7 @@
+const emailPattern = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 function GetFields() {
     let emailValue = document.getElementById("email").value;
     let passwordValue = document.getElementById("password").value;
-    const emailPattern = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
     if (!emailPattern.test(emailValue)) {
         return false;
     }
@@ -75,5 +75,30 @@ function Login() {
             ShowProblem("Неправильный логин или пароль");
         }
     })
+}
 
+function ForgotPassword() {
+    let email = document.getElementById("email").value;
+    if (email === undefined || email === "" || !emailPattern.test(email)) {
+        ShowProblem("Напишите электронную почту.");
+        return
+    }
+    fetch("/reset-password", {
+        method: "POST", headers: {
+            "Content-Type": "application/json",
+        }, body: JSON.stringify({email: email})
+    }).then(res => {
+        if (res.status === 201) {
+            window.alert("Пароль отправлен")
+        }
+        return res.text().then(text => {
+            console.error(text);
+            throw new Error(text)
+        });
+    }).catch(error => {
+        console.log(error);
+        if (error.message === "no-such-user") {
+            ShowProblem("Нет аккаунта с такой почтой. Можете зарегистрироваться.");
+        }
+    })
 }

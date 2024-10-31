@@ -40,3 +40,14 @@ form {
     flex-grow: 0;
     color: crimson;
 }
+
+#password-reset {
+    text-align: center;
+    cursor: pointer;
+}
+
+#password-reset-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
