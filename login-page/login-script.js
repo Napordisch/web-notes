@@ -61,7 +61,7 @@ function Login() {
                 throw new Error(text)
             });
         }
-        location.clear();
+        localStorage.clear();
         localStorage.setItem("email", fields.email);
         localStorage.setItem("password", fields.password);
         window.location.href = "/notes";

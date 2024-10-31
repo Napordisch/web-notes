@@ -1,6 +1,7 @@
 const express = require('express')
 path = require('path')
 const fs = require("fs");
+const {set} = require("express/lib/application");
 const app = express()
 const port = 3000;
 
@@ -63,11 +64,25 @@ app.get('/notes', (req, res) => {
     res.sendFile("notes-viewer-page/all-notes.html", {root: __dirname});
 })
 
-app.get('/edit', (req, res) => {
+app.put('/edit', (req, res) => {
+    let credentials = req.body;
+    console.log(credentials);
+    if (NotesDB.notes[credentials.email][credentials.noteID] === undefined) {
+        res.status(404).send("no-note-with-such-id");
+        return;
+    }
     let notes = NotesDB.notes[credentials.email];
-    let {id} = req.query;
+    let noteID = credentials.noteID;
+    let sentNote = notes[noteID]
+    sentNote.id = noteID;
+    console.log(sentNote);
+    res.send(JSON.stringify(sentNote));
+})
+
+app.post('/save-note')
+
+app.get('/edit', (req, res) => {
     res.sendFile("note-page/note.html", {root: __dirname});
-    res.send(JSON.stringify(notes[id]));
 })
 
 app.get('/', (req, res) => {

@@ -1,6 +1,8 @@
+let note = ""
 function read() {
     if (localStorage.note != undefined && localStorage.note != null) {
-        document.getElementById("buffer").value = localStorage.note;
+        note = JSON.parse(localStorage.note);
+        document.getElementById("buffer").value = note.content;
     }
 }
 
@@ -20,7 +22,8 @@ function save() {
     if (!saveTriggered) {
         saveTriggered = true;
         setTimeout(() => {
-            localStorage.note = document.getElementById("buffer").value;
+            note.content = document.getElementById("buffer").value;
+            localStorage.setItem("note", JSON.stringify(note))
             saveTriggered = false;
         }, 500)
     }

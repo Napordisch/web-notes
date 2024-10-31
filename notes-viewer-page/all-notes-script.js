@@ -1,4 +1,5 @@
 let notes = []
+
 function GetAllNotes() {
     fetch("/get-all-notes", {
         method: "POST",
@@ -27,11 +28,12 @@ function AddNote(noteStructure, note) {
     let newNote = document.createElement("div");
     newNote.classList.add("note");
     newNote.id = note.id;
+    newNote.setAttribute("onclick", 'Edit("' + note.id + '")');
     newNote.innerHTML = noteStructure;
     newNote.querySelector("p").innerText = note.content;
     if (note.tags !== []) {
-        for (tag in note.tags) {
-            let newTag =  document.createElement("li")
+        for (let tag in note.tags) {
+            let newTag = document.createElement("li")
             newTag.classList.add("tag");
             let tagLink = document.createElement("a");
             tagLink.innerText = note.tags[tag];
@@ -58,14 +60,13 @@ function ClearPage() {
 function FillPageWithFetch(tags) {
     ClearPage();
     fetch('/note-element.html').then(res => res.text().then(text => {
-        // let noteElement = text;
-        let noteElement = '<p class="note-text">\n</p>\n<ul class="tags">\n</ul>'
+        let noteElement = text;
         if (tags.length === 0) {
             for (let note in notes) {
                 AddNote(noteElement, notes[note]);
             }
         } else {
-            for (let note in notes)  {
+            for (let note in notes) {
                 if (containsAllItems(notes[note].tags, tags)) {
                     AddNote(noteElement, notes[note]);
                 }
@@ -84,7 +85,7 @@ function FillPage(tags) {
             AddNote(noteElement, notes[note]);
         }
     } else {
-        for (let note in notes)  {
+        for (let note in notes) {
             if (containsAllItems(notes[note].tags.map(tag => tag.toLowerCase()), tags)) {
                 AddNote(noteElement, notes[note]);
             }
@@ -113,6 +114,22 @@ function FillByTags() {
 function Logout() {
     localStorage.clear();
     document.location.href = "/login";
+}
+
+function Edit(id) {
+    fetch('/edit', {
+        method: 'PUT', headers: {
+            'Content-Type': 'application/json',
+        }, body: JSON.stringify({ email: localStorage.getItem("email"), password: localStorage.getItem("password"), noteID: id}),
+    }).then(res => {
+        res.text().then(note => {
+            localStorage.setItem("note", note);
+            console.log(note);
+            document.location.href = "/edit";
+        })
+    }).catch(error => {
+        console.error(error.message);
+    })
 }
 
 GetAllNotes();
