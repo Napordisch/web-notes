@@ -54,7 +54,6 @@ NotesDB.AddNote = (email) => {
 }
 
 NotesDB.EditNote = (email, updatedNote) => {
-    console.log(updatedNote);
 
     let noteID = updatedNote.id;
     if (!(email in NotesDB.notes)) {
@@ -172,7 +171,6 @@ app.post('/create-note', (req, res) => {
         return;
     }
     let noteID = NotesDB.AddNote(req.body.email);
-    console.log(NotesDB);
     res.status(200).send(noteID);
 })
 
@@ -182,7 +180,7 @@ app.delete('/delete-note', (req, res) => {
         return;
     }
     if (!(req.body.NoteID in NotesDB.notes[req.body.email])) {
-        console.log("no-note-with-such-id");
+        console.error("no-note-with-such-id");
         res.status(404).send("no-note-with-such-id");
         return;
     }
