@@ -188,3 +188,8 @@ function DeleteNote(id) {
 
 
 GetAllNotes();
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) { // if true, the page was loaded from cache
+        GetAllNotes();
+    }
+});
